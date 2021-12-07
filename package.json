@@ -1,13 +1,18 @@
 {
-  "name": "marked-extension-template",
-  "version": "0.0.0",
-  "description": "marked extension template",
+  "name": "marked-extended-tables",
+  "version": "1.0.0",
+  "description": "extended Markdown tables for Marked.js",
   "main": "./src/index.js",
   "browser": "./lib/index.umd.js",
   "type": "module",
   "keywords": [
     "marked",
-    "extension"
+    "extension",
+    "table",
+    "span",
+    "column",
+    "row",
+    "header"
   ],
   "scripts": {
     "test": "jest --verbose",
@@ -19,14 +24,14 @@
     "type": "git",
     "url": "git+https://github.com/markedjs/marked-extension-template.git"
   },
-  "author": "Tony Brix <Tony@Brix.ninja> (https://Tony.Brix.ninja)",
+  "author": "Trevor Buckner <calculuschild@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/markedjs/marked-extension-template/issues"
+    "url": "https://github.com/calculuschild/marked-extended-tables/issues"
   },
-  "homepage": "https://github.com/markedjs/marked-extension-template#readme",
+  "homepage": "https://github.com/calculuschild/marked-extended-tables#readme",
   "peerDependencies": {
-    "marked": "^4.0.6"
+    "marked": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

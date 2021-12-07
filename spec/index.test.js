@@ -8,11 +8,11 @@ describe('this-extension', () => {
 
   test('no options', () => {
     marked.use(thisExtension());
-    expect(marked('example markdown')).toBe('<p>example html</p>\n');
+    expect(marked('example markdown')).toBe('<p>example markdown</p>\n');
   });
 
   test('markdown not using this extension', () => {
     marked.use(thisExtension());
-    expect(marked('not example markdown')).not.toBe('<p>example html</p>\n');
+    expect(marked('not example markdown')).not.toBe('<p>example markdown</p>\n');
   });
 });

@@ -1,7 +1,7 @@
-module.exports = {
+export default {
   input: 'src/index.js',
   output: {
-    name: 'thisExtension',
+    name: 'extended-tables',
     file: 'lib/index.umd.js',
     format: 'umd'
   }

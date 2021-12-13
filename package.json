@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markedjs/marked-extension-template.git"
+    "url": "git+https://github.com/calculuschild/marked-extended-tables.git"
   },
   "author": "Trevor Buckner <calculuschild@gmail.com>",
   "license": "MIT",

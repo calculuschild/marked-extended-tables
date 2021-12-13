@@ -48,7 +48,7 @@ const extended-tables = require("marked-extended-tables");
 // import marked from "https://cdn.jsdelivr.net/gh/markedjs/marked/lib/marked.esm.js";
 // import this extension from "https://cdn.jsdelivr.net/gh/calculuschild/marked-extended-tables/lib/index.mjs";
 
-marked.use(extended-tables);
+marked.use(extended-tables());
 
 marked("| spanned header ||\n|----|----|\n|cell 1|cell 2|");
 // <table>

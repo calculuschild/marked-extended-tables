@@ -2,7 +2,8 @@
   "name": "marked-extended-tables",
   "version": "1.0.0",
   "description": "extended Markdown tables for Marked.js",
-  "main": "./src/index.js",
+  "main": "./lib/index.cjs",
+  "module": "./src/index.js",
   "browser": "./lib/index.umd.js",
   "type": "module",
   "keywords": [

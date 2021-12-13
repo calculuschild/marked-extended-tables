@@ -1,18 +1,42 @@
 import { marked } from 'marked';
-import thisExtension from '../src/index.js';
+import extendedTable from '../src/index.js';
 
-describe('this-extension', () => {
+function trimLines(s) {
+  return s.split('\n').map(l => l.trim()).join('\n');
+}
+
+describe('extended-table', () => {
   beforeEach(() => {
     marked.setOptions(marked.getDefaults());
   });
 
-  test('no options', () => {
-    marked.use(thisExtension());
-    expect(marked('example markdown')).toBe('<p>example markdown</p>\n');
+  test('Column Spanning', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | H1      | H2      | H3      |
+      |---------|---------|---------|
+      | This cell spans 3 columns |||
+    `))).toMatchSnapshot();
   });
 
-  test('markdown not using this extension', () => {
-    marked.use(thisExtension());
-    expect(marked('not example markdown')).not.toBe('<p>example markdown</p>\n');
+  test('Row Spanning', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | H1           | H2      |
+      |--------------|---------|
+      | This cell    | Cell A  |
+      | spans three ^| Cell B  |
+      | rows        ^| Cell C  |
+    `))).toMatchSnapshot();
+  });
+
+  test('Multi-row headers', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | This header spans two   || Header A |
+      | columns *and* two rows ^|| Header B |
+      |-------------|------------|----------|
+      | Cell A      | Cell B     | Cell C   |
+    `))).toMatchSnapshot();
   });
 });

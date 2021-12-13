@@ -8,8 +8,8 @@ export default function() {
         tokenizer(src, tokens) {
           // const regex = this.tokenizer.rules.block.table;
           const regex = new RegExp('^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header
-              + ' {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)\\|?' // Align
-              + '(?:\\n *((?:(?!\\n| {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})' // Cells
+              + ' {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?' // Align
+              + '(?:\\n((?:(?! *\\n| {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})' // Cells
               + '(?:\\n+|$)| {0,3}#{1,6} | {0,3}>| {4}[^\\n]| {0,3}(?:`{3,}'
               + '(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n| {0,3}(?:[*+-]|1[.)]) |'
               + '<\\/?(?:address|article|aside|base|basefont|blockquote|body|'

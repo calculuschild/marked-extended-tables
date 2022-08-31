@@ -69,7 +69,7 @@ export default function() {
                 row = item.header[j];
                 for (k = 0; k < row.length; k++) {
                   row[k].tokens = [];
-                  this.lexer.inlineTokens(row[k].text, row[k].tokens);
+                  this.lexer.inline(row[k].text, row[k].tokens);
                 }
               }
 
@@ -79,7 +79,7 @@ export default function() {
                 row = item.rows[j];
                 for (k = 0; k < row.length; k++) {
                   row[k].tokens = [];
-                  this.lexer.inlineTokens(row[k].text, row[k].tokens);
+                  this.lexer.inline(row[k].text, row[k].tokens);
                 }
               }
               return item;

@@ -42,15 +42,16 @@ Headers can now follow the same structure as cells, to include multiple rows, an
 
 ```js
 const marked = require("marked");
-const extended-tables = require("marked-extended-tables");
+const extendedTables = require("marked-extended-tables");
 
 // or ES Module script
 // import marked from "https://cdn.jsdelivr.net/gh/markedjs/marked/lib/marked.esm.js";
 // import this extension from "https://cdn.jsdelivr.net/gh/calculuschild/marked-extended-tables/lib/index.mjs";
 
-marked.use(extended-tables());
+marked.use(extendedTables());
 
-marked("| spanned header ||\n|----|----|\n|cell 1|cell 2|");
+const html = marked.parse("| spanned header ||\n|----|----|\n|cell 1|cell 2|");
+console.log(html);
 // <table>
 //   <thead>
 //     <tr><th colspan="2">spanned header</th></tr>

@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     input: 'src/index.js',
     output: {

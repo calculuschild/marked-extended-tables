@@ -36,7 +36,7 @@
     "marked": ">=3 <10"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.5",
+    "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.22.5",
     "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",

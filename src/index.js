@@ -19,9 +19,10 @@ export default function() {
           if (cap) {
             const item = {
               type: 'spanTable',
-              header: cap[1].replace(/\n$/, '').split('\n'),
+              raw: cap[0],
+              header: cap[1].replace(/\n[ \t]*$/, '').split('\n'),
               align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
-              rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : []
+              rows: cap[3] && cap[3].trim ? cap[3].replace(/\n[ \t]*$/, '').split('\n') : []
             };
 
             // Get first header row to determine how many columns
@@ -32,8 +33,6 @@ export default function() {
             }, 0);
 
             if (colCount === item.align.length) {
-              item.raw = cap[0];
-
               let i, j, k, row;
 
               // Get alignment row (:---:)
@@ -68,8 +67,7 @@ export default function() {
               for (j = 0; j < l; j++) {
                 row = item.header[j];
                 for (k = 0; k < row.length; k++) {
-                  row[k].tokens = [];
-                  this.lexer.inline(row[k].text, row[k].tokens);
+                  row[k].tokens = this.lexer.inline(row[k].text);
                 }
               }
 
@@ -78,8 +76,7 @@ export default function() {
               for (j = 0; j < l; j++) {
                 row = item.rows[j];
                 for (k = 0; k < row.length; k++) {
-                  row[k].tokens = [];
-                  this.lexer.inline(row[k].text, row[k].tokens);
+                  row[k].tokens = this.lexer.inline(row[k].text);
                 }
               }
               return item;

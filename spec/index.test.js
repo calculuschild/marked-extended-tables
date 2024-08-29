@@ -39,4 +39,26 @@ describe('extended-table', () => {
       | Cell A      | Cell B     | Cell C   |
     `))).toMatchSnapshot();
   });
+
+  test('Stops at custom terminators', () => {
+    marked.use(extendedTable(['aaaa']));
+    expect(marked(trimLines(`
+      | Header A | Header B |
+      |----------|----------|
+      | Cell A   | Cell B   |
+      aaaa
+    `))).toMatchSnapshot();
+  });
+
+  test('Stops at custom multiline terminators', () => {
+    marked.use(extendedTable(['aaaa\nbbbb']));
+    expect(marked(trimLines(`
+      | Header A | Header B |
+      |----------|----------|
+      | Cell A   | Cell B   |
+      aaaa
+      bbbb
+      cccc
+    `))).toMatchSnapshot();
+  });
 });

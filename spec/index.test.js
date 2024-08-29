@@ -40,25 +40,25 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-	test('Stops at custom terminators', () => {
+  test('Stops at custom terminators', () => {
     marked.use(extendedTable(['aaaa']));
     expect(marked(trimLines(`
       | Header A | Header B |
       |----------|----------|
       | Cell A   | Cell B   |
-			aaaa
+      aaaa
     `))).toMatchSnapshot();
   });
 
-	test('Stops at custom multiline terminators', () => {
+  test('Stops at custom multiline terminators', () => {
     marked.use(extendedTable(['aaaa\nbbbb']));
     expect(marked(trimLines(`
       | Header A | Header B |
       |----------|----------|
       | Cell A   | Cell B   |
-			aaaa
-			bbbb
-			cccc
+      aaaa
+      bbbb
+      cccc
     `))).toMatchSnapshot();
   });
 });

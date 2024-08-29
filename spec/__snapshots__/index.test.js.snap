@@ -27,3 +27,23 @@ exports[`extended-table Row Spanning 1`] = `
 </tr><tr><td>Cell C</td>
 </tr></tbody></table>"
 `;
+
+exports[`extended-table Stops at custom multiline terminators 1`] = `
+"<table><thead><tr><th>Header A</th>
+<th>Header B</th>
+</tr></thead><tbody><tr><td>Cell A</td>
+<td>Cell B</td>
+</tr></tbody></table><p>aaaa
+bbbb
+cccc</p>
+"
+`;
+
+exports[`extended-table Stops at custom terminators 1`] = `
+"<table><thead><tr><th>Header A</th>
+<th>Header B</th>
+</tr></thead><tbody><tr><td>Cell A</td>
+<td>Cell B</td>
+</tr></tbody></table><p>aaaa</p>
+"
+`;

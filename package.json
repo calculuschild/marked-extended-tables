@@ -1,6 +1,6 @@
 {
   "name": "marked-extended-tables",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "extended Markdown tables for Marked.js",
   "main": "./lib/index.cjs",
   "module": "./src/index.js",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/calculuschild/marked-extended-tables#readme",
   "peerDependencies": {
-    "marked": ">=3 <12"
+    "marked": ">=3 <15"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",

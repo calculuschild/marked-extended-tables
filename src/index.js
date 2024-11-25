@@ -8,7 +8,7 @@ export default function(endRegex = []) {
         tokenizer(src, tokens) {
           // const regex = this.tokenizer.rules.block.table;
           let regexString = '^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header
-              + ' {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?' // Align
+              + ' {0,3}(?:\\| *)?(:?-+(([1-9]|[1-9][0-9]|100)\%)?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?' // Align
               + '(?:\\n((?:(?! *\\n| {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})' // Cells
               + '(?:\\n+|$)| {0,3}#{1,6} | {0,3}>| {4}[^\\n]| {0,3}(?:`{3,}'
               + '(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n| {0,3}(?:[*+-]|1[.)]) |'
@@ -21,6 +21,9 @@ export default function(endRegex = []) {
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
 
           regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
+          const alignRegex = /\\|:?-+(([1-9]|[1-9][0-9]|100)\%)-+:?\\|/gm;
+          const widthRegex = /-(([1-9]|[1-9][0-9]|100)\%)-/;
+          const alignMatch = alignRegex.exec(src);
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
 
@@ -29,7 +32,8 @@ export default function(endRegex = []) {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
               align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
-              rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : []
+              rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : [],
+              widths: []
             };
 
             // Get first header row to determine how many columns
@@ -48,6 +52,12 @@ export default function(endRegex = []) {
               let l = item.align.length;
 
               for (i = 0; i < l; i++) {
+                // Strip width declarations first.
+                const match = widthRegex.exec(item.align[i]);
+                if (match?.length) {
+                  item.widths[i] = match[1];
+                  item.align[i] = item.align[i].slice(match.index + 1, -1 * (match[1].length - 1));
+                }
                 if (/^ *-+: *$/.test(item.align[i])) {
                   item.align[i] = 'right';
                 } else if (/^ *:-+: *$/.test(item.align[i])) {
@@ -97,6 +107,15 @@ export default function(endRegex = []) {
         renderer(token) {
           let i, j, row, cell, col, text;
           let output = '<table>';
+          // Add column specs
+          if (token.widths?.length > 0) {
+            output += '<colgroup>';
+            for (i = 0; i < token.header.length; i++) {
+              if (token.widths[i]) output += `<col style="width:${token.widths[i]}" />`;
+              else output += '<col />';
+            }
+            output += '</colgroup>';
+          }
           output += '<thead>';
           for (i = 0; i < token.header.length; i++) {
             row = token.header[i];

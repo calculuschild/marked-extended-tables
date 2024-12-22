@@ -21,6 +21,7 @@ export default function(endRegex = []) {
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
 
           regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
+          const widthRegex = /(([1-9]|[1-9][0-9]|100)\%)/;
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
 
@@ -49,6 +50,12 @@ export default function(endRegex = []) {
               let l = item.align.length;
 
               for (i = 0; i < l; i++) {
+                // Strip width declarations first.
+                const match = widthRegex.exec(item.align[i]);
+                if (match?.length) {
+                  item.widths[i] = match[1];
+                  item.align[i] = `${item.align[i].slice(0, match.index)}${item.align[i].slice(match.index + match[0].length)}`;
+                }
                 if (/^ *-+: *$/.test(item.align[i])) {
                   item.align[i] = 'right';
                 } else if (/^ *:-+: *$/.test(item.align[i])) {

@@ -8,7 +8,7 @@ export default function(endRegex = []) {
         tokenizer(src, tokens) {
           // const regex = this.tokenizer.rules.block.table;
           let regexString = '^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header
-              + ' {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?' // Align
+              + ' {0,3}(?:\\| *)?(:?-+(?: *(?:100|[1-9][0-9]?%) *-)?-*:? *(?:\\| *:?-+(?: *(?:100|[1-9][0-9]?%) *-)?-*:? *)*)(?:\\| *)?' // Align
               + '(?:\\n((?:(?! *\\n| {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})' // Cells
               + '(?:\\n+|$)| {0,3}#{1,6} | {0,3}>| {4}[^\\n]| {0,3}(?:`{3,}'
               + '(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n| {0,3}(?:[*+-]|1[.)]) |'
@@ -21,6 +21,7 @@ export default function(endRegex = []) {
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
 
           regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
+          const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
 
@@ -28,8 +29,9 @@ export default function(endRegex = []) {
             const item = {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
-              align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
-              rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : []
+              align: cap[2].replace(widthRegex, '').replace(/^ *|\| *$/g, '').split(/ *\| */),
+              rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : [],
+              width: cap[2].replace(/:/g, '').replace(/-+| /g, '').split('|')
             };
 
             // Get first header row to determine how many columns
@@ -105,7 +107,7 @@ export default function(endRegex = []) {
             for (j = 0; j < row.length; j++) {
               cell = row[j];
               text = this.parser.parseInline(cell.tokens);
-              output += getTableCell(text, cell, 'th', token.align[col]);
+              output += getTableCell(text, cell, 'th', token.align[col], token.width[col]);
               col += cell.colspan;
             }
             output += '</tr>';
@@ -120,7 +122,7 @@ export default function(endRegex = []) {
               for (j = 0; j < row.length; j++) {
                 cell = row[j];
                 text = this.parser.parseInline(cell.tokens);
-                output += getTableCell(text, cell, 'td', token.align[col]);
+                output += getTableCell(text, cell, 'td', token.align[col], token.width[col]);
                 col += cell.colspan;
               }
               output += '</tr>';
@@ -135,14 +137,15 @@ export default function(endRegex = []) {
   };
 }
 
-const getTableCell = (text, cell, type, align) => {
+const getTableCell = (text, cell, type, align, width) => {
   if (!cell.rowspan) {
     return '';
   }
   const tag = `<${type}`
             + `${cell.colspan > 1 ? ` colspan=${cell.colspan}` : ''}`
             + `${cell.rowspan > 1 ? ` rowspan=${cell.rowspan}` : ''}`
-            + `${align ? ` align=${align}` : ''}>`;
+            + `${align ? ` align=${align}` : ''}`
+            + `${width ? ` width=${width}` : ''}>`;
   return `${tag + text}</${type}>\n`;
 };
 

@@ -21,7 +21,7 @@ export default function(endRegex = []) {
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
 
           regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
-          const widthRegex = /(?:100|[1-9][0-9]?%)/g;
+          const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
 

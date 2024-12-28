@@ -93,7 +93,7 @@ describe('extended-table', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`
       | Header A | Header B | Header C |
-      |:---10%---|:---20%--:|---50%---:|
+      |:---10%---|:-- 20% -:|---50%---:|
       | Cell A   | Cell B   | Cell C   |
     `))).toMatchSnapshot();
   });

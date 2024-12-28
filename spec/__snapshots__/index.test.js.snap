@@ -47,3 +47,41 @@ exports[`extended-table Stops at custom terminators 1`] = `
 </tr></tbody></table><p>aaaa</p>
 "
 `;
+
+exports[`extended-table Works with combined widths and alignment 1`] = `
+"<table><thead><tr><th align=left width=10%>Header A</th>
+<th align=center width=20%>Header B</th>
+<th align=right width=50%>Header C</th>
+</tr></thead><tbody><tr><td align=left width=10%>Cell A</td>
+<td align=center width=20%>Cell B</td>
+<td align=right width=50%>Cell C</td>
+</tr></tbody></table>"
+`;
+
+exports[`extended-table Works with minimal delimiter rows 1`] = `
+"<table><thead><tr><th>Header A</th>
+<th align=left>Header B</th>
+<th align=right>Header C</th>
+<th align=center>Header D</th>
+</tr></thead><tbody><tr><td>Cell A</td>
+<td align=left>Cell B</td>
+<td align=right>Cell C</td>
+<td align=center>Cell D</td>
+</tr></tbody></table>"
+`;
+
+exports[`extended-table Works with mix of widths and not 1`] = `
+"<table><thead><tr><th width=10%>Header A</th>
+<th>Header B</th>
+<th width=50%>Header C</th>
+</tr></thead><tbody><tr><td width=10%>Cell A</td>
+<td>Cell B</td>
+<td width=50%>Cell C</td>
+</tr></tbody></table>"
+`;
+
+exports[`extended-table Works with percentage widths 1`] = `
+"<table><thead><tr><th width=10%>Header A</th>
+</tr></thead><tbody><tr><td width=10%>Cell A</td>
+</tr></tbody></table>"
+`;

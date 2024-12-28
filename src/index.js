@@ -99,15 +99,6 @@ export default function(endRegex = []) {
         renderer(token) {
           let i, j, row, cell, col, text;
           let output = '<table>';
-          // Add column specs
-          if (token.widths?.length > 0) {
-            output += '<colgroup>';
-            for (i = 0; i < token.widths.length; i++) {
-              if (token.widths[i]) output += `<col style="width:${token.widths[i]}" />`;
-              else output += '<col />';
-            }
-            output += '</colgroup>';
-          }
           output += '<thead>';
           for (i = 0; i < token.header.length; i++) {
             row = token.header[i];
@@ -116,7 +107,7 @@ export default function(endRegex = []) {
             for (j = 0; j < row.length; j++) {
               cell = row[j];
               text = this.parser.parseInline(cell.tokens);
-              output += getTableCell(text, cell, 'th', token.align[col]);
+              output += getTableCell(text, cell, 'th', token.align[col], token.width[col]);
               col += cell.colspan;
             }
             output += '</tr>';
@@ -131,7 +122,7 @@ export default function(endRegex = []) {
               for (j = 0; j < row.length; j++) {
                 cell = row[j];
                 text = this.parser.parseInline(cell.tokens);
-                output += getTableCell(text, cell, 'td', token.align[col]);
+                output += getTableCell(text, cell, 'td', token.align[col], token.width[col]);
                 col += cell.colspan;
               }
               output += '</tr>';
@@ -146,14 +137,15 @@ export default function(endRegex = []) {
   };
 }
 
-const getTableCell = (text, cell, type, align) => {
+const getTableCell = (text, cell, type, align, width) => {
   if (!cell.rowspan) {
     return '';
   }
   const tag = `<${type}`
             + `${cell.colspan > 1 ? ` colspan=${cell.colspan}` : ''}`
             + `${cell.rowspan > 1 ? ` rowspan=${cell.rowspan}` : ''}`
-            + `${align ? ` align=${align}` : ''}>`;
+            + `${align ? ` align=${align}` : ''}`
+            + `${width ? ` width=${width}` : ''}>`;
   return `${tag + text}</${type}>\n`;
 };
 

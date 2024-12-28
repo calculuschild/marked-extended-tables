@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/calculuschild/marked-extended-tables#readme",
   "peerDependencies": {
-    "marked": ">=3 <15"
+    "marked": ">=3 <16"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",

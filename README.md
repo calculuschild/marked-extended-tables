@@ -38,11 +38,11 @@ Headers can now follow the same structure as cells, to include multiple rows, an
 ```
 
 ## Column widths
-Column widths may be set by percentage.
+Column widths may be set by percentage. At least one hyphen on is required on each side of the width value, padding with spaces allowed: `|-10%-|` or `|- 10% -|`.
 
 ```
 |Column One|Column Two|Column Three|
-|--10%-----|---40%----|----50%-----|
+|--10%-----|-- 40% ---|:---50%-----|
 ```
 
 # Usage

@@ -61,4 +61,40 @@ describe('extended-table', () => {
       cccc
     `))).toMatchSnapshot();
   });
+
+	test('Works with minimal delimiter rows', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | Header A | Header B | Header C | Header D |
+      |-|:-|-:|:-:|
+      | Cell A   | Cell B   | Cell C   | Cell D   |
+    `))).toMatchSnapshot();
+  });
+
+	test('Works with percentage widths', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | Header A |
+      |---10%----|
+      | Cell A   |
+    `))).toMatchSnapshot();
+  });
+
+	test('Works with mix of widths and not', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | Header A | Header B | Header C |
+      |---10%----|----------|--- 50% --|
+      | Cell A   | Cell B   | Cell C   |
+    `))).toMatchSnapshot();
+  });
+
+	test('Works with combined widths and alignment', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | Header A | Header B | Header C |
+      |:---10%---|:---20%--:|---50%---:|
+      | Cell A   | Cell B   | Cell C   |
+    `))).toMatchSnapshot();
+  });
 });

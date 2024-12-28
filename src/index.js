@@ -29,7 +29,7 @@ export default function(endRegex = []) {
             const item = {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
-              align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
+              align: cap[2].replace(widthRegex, '').replace(/^ *|\| *$/g, '').split(/ *\| */),
               rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : [],
               width: cap[2].replace(/:/g, '').replace(/-+| /g, '').split('|')
             };
@@ -50,12 +50,6 @@ export default function(endRegex = []) {
               let l = item.align.length;
 
               for (i = 0; i < l; i++) {
-                // Strip width declarations first.
-                const match = widthRegex.exec(item.align[i]);
-                if (match?.length) {
-                  item.widths[i] = match[1];
-                  item.align[i] = `${item.align[i].slice(0, match.index)}${item.align[i].slice(match.index + match[0].length)}`;
-                }
                 if (/^ *-+: *$/.test(item.align[i])) {
                   item.align[i] = 'right';
                 } else if (/^ *:-+: *$/.test(item.align[i])) {

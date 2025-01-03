@@ -18,6 +18,7 @@
   "scripts": {
     "test": "jest --verbose",
     "test:cover": "jest --coverage",
+    "test:marked": "node --test --test-reporter=dot spec/marked.spec.js",
     "lint": "eslint --fix .",
     "lint:dry": "eslint .",
     "build": "rollup -c rollup.config.umd.js"
@@ -40,6 +41,7 @@
     "@babel/preset-env": "^7.26.0",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
+    "@markedjs/testutils": "^15.0.0-0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/git": "^10.0.1",

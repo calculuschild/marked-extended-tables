@@ -62,7 +62,7 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-	test('Works with minimal delimiter rows', () => {
+  test('Works with minimal delimiter rows', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`
       | Header A | Header B | Header C | Header D |
@@ -71,7 +71,7 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-	test('Works with percentage widths', () => {
+  test('Works with percentage widths', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`
       | Header A |
@@ -80,7 +80,7 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-	test('Works with mix of widths and not', () => {
+  test('Works with mix of widths and not', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`
       | Header A | Header B | Header C |
@@ -89,7 +89,7 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-	test('Works with combined widths and alignment', () => {
+  test('Works with combined widths and alignment', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`
       | Header A | Header B | Header C |

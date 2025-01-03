@@ -10,7 +10,7 @@ export default function(endRegex = []) {
           let regexString = '^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header
               + ' {0,3}(?:\\| *)?(:?-+(?: *(?:100|[1-9][0-9]?%) *-)?-*:? *(?:\\| *:?-+(?: *(?:100|[1-9][0-9]?%) *-)?-*:? *)*)(?:\\| *)?' // Align
               + '(?:\\n((?:(?! *\\n| {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})' // Cells
-              + '(?:\\n+|$)| {0,3}#{1,6} | {0,3}>| {4}[^\\n]| {0,3}(?:`{3,}'
+              + '(?:\\n+|$)| {0,3}#{1,6}(?:\\s|$)| {0,3}>| {4}[^\\n]| {0,3}(?:`{3,}'
               + '(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n| {0,3}(?:[*+-]|1[.)]) |'
               + '<\\/?(?:address|article|aside|base|basefont|blockquote|body'
               + '|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt'
@@ -30,7 +30,7 @@ export default function(endRegex = []) {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
               align: cap[2].replace(widthRegex, '').replace(/^ *|\| *$/g, '').split(/ *\| */),
-              rows: cap[3]?.trim() ? cap[3].replace(/\n$/, '').split('\n') : [],
+              rows: cap[3]?.trim() ? cap[3].replace(/\n[ \t]*$/, '').split('\n') : [],
               width: cap[2].replace(/:/g, '').replace(/-+| /g, '').split('|')
             };
 
@@ -150,7 +150,7 @@ const getTableCell = (text, cell, type, align, width) => {
 };
 
 const splitCells = (tableRow, count, prevRow = []) => {
-  const cells = [...tableRow.matchAll(/(?:[^|\\]|\\.?)+(?:\|+|$)/g)].map((x) => x[0]);
+  const cells = [...tableRow.trim().matchAll(/(?:[^|\\]|\\.?)+(?:\|+|$)/g)].map((x) => x[0]);
 
   // Remove first/last cell in a row if whitespace only and no leading/trailing pipe
   if (!cells[0]?.trim()) { cells.shift(); }

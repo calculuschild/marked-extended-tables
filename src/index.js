@@ -30,7 +30,7 @@ export default function(endRegex = []) {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
               align: cap[2].replace(widthRegex, '').replace(/^ *|\| *$/g, '').split(/ *\| */),
-              rows: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : [],
+              rows: cap[3]?.trim() ? cap[3].replace(/\n$/, '').split('\n') : [],
               width: cap[2].replace(/:/g, '').replace(/-+| /g, '').split('|')
             };
 

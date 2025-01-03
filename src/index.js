@@ -196,6 +196,7 @@ const splitCells = (tableRow, count, prevRow = []) => {
   } else {
     while (numCols < count) {
       cells.push({
+        rowspan: 1,
         colspan: 1,
         text: ''
       });

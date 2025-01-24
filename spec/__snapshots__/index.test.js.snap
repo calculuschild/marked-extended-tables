@@ -8,6 +8,24 @@ exports[`extended-table Column Spanning 1`] = `
 </tr></tbody></table>"
 `;
 
+exports[`extended-table Drops empty TRs 1`] = `
+"<table><thead><tr><th align=left>Race</th>
+<th align=left>Multi-class options</th>
+</tr></thead><tbody><tr><td align=left>Dwarf</td>
+<td align=left>fighter/cleric, fighter/thief</td>
+</tr></tbody><tbody><tr><td rowspan=2 align=left>Elf </td>
+<td rowspan=2 align=left>fighter/mage, fighter/thief, mage/thief, fighter/mage/thief                                         </td>
+</tr></tbody><tbody><tr><td rowspan=2 align=left>Gnome </td>
+<td rowspan=2 align=left>fighter/thief, fighter/cleric, fighter/illusionist, thief/cleric, thief/illusionist, cleric/illusionist        </td>
+</tr></tbody><tbody><tr><td rowspan=3 align=left>Half-elf  </td>
+<td rowspan=3 align=left>fighter/priest, fighter/mage, fighter/thief, ranger/priest, mage/priest, mage/thief,                                    fighter/mage/priest, fighter/mage/thief                    </td>
+</tr></tbody><tbody><tr><td align=left>Halfling</td>
+<td align=left>fighter/thief</td>
+</tr></tbody><tbody><tr><td align=left>Human</td>
+<td align=left>none</td>
+</tr></tbody></table>"
+`;
+
 exports[`extended-table Multi-row headers 1`] = `
 "<table><thead><tr><th colspan=2 rowspan=2>This header spans two columns <em>and</em> two rows </th>
 <th>Header A</th>
@@ -23,8 +41,8 @@ exports[`extended-table Row Spanning 1`] = `
 <th>H2</th>
 </tr></thead><tbody><tr><td rowspan=3>This cell spans three  rows        </td>
 <td>Cell A</td>
-</tr><tr><td>Cell B</td>
-</tr><tr><td>Cell C</td>
+</tr></tbody><tbody><tr><td>Cell B</td>
+</tr></tbody><tbody><tr><td>Cell C</td>
 </tr></tbody></table>"
 `;
 
@@ -55,6 +73,24 @@ exports[`extended-table Works with combined widths and alignment 1`] = `
 </tr></thead><tbody><tr><td align=left width=10%>Cell A</td>
 <td align=center width=20%>Cell B</td>
 <td align=right width=50%>Cell C</td>
+</tr></tbody></table>"
+`;
+
+exports[`extended-table Works with combined widths and alignment 2`] = `
+"<table><thead><tr><th align=left>Race</th>
+<th align=left>Multi-class options</th>
+</tr></thead><tbody><tr><td align=left>Dwarf</td>
+<td align=left>fighter/cleric, fighter/thief</td>
+</tr></tbody><tbody><tr><td rowspan=2 align=left>Elf </td>
+<td rowspan=2 align=left>fighter/mage, fighter/thief, mage/thief, fighter/mage/thief                                         </td>
+</tr></tbody><tbody><tr><td rowspan=2 align=left>Gnome </td>
+<td rowspan=2 align=left>fighter/thief, fighter/cleric, fighter/illusionist, thief/cleric, thief/illusionist, cleric/illusionist        </td>
+</tr></tbody><tbody><tr><td rowspan=3 align=left>Half-elf  </td>
+<td rowspan=3 align=left>fighter/priest, fighter/mage, fighter/thief, ranger/priest, mage/priest, mage/thief,                                    fighter/mage/priest, fighter/mage/thief                    </td>
+</tr></tbody><tbody><tr><td align=left>Halfling</td>
+<td align=left>fighter/thief</td>
+</tr></tbody><tbody><tr><td align=left>Human</td>
+<td align=left>none</td>
 </tr></tbody></table>"
 `;
 

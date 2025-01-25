@@ -8,7 +8,7 @@ exports[`extended-table Column Spanning 1`] = `
 </tr></tbody></table>"
 `;
 
-exports[`extended-table Drops empty TRs 1`] = `
+exports[`extended-table Drops empty TRs in multiple tbody Mode 1`] = `
 "<table><thead><tr><th align=left>Race</th>
 <th align=left>Multi-class options</th>
 </tr></thead><tbody><tr><td align=left>Dwarf</td>
@@ -22,6 +22,24 @@ exports[`extended-table Drops empty TRs 1`] = `
 </tr></tbody><tbody><tr><td align=left>Halfling</td>
 <td align=left>fighter/thief</td>
 </tr></tbody><tbody><tr><td align=left>Human</td>
+<td align=left>none</td>
+</tr></tbody></table>"
+`;
+
+exports[`extended-table Leave empty TRs in single tbody Mode 1`] = `
+"<table><thead><tr><th align=left>Race</th>
+<th align=left>Multi-class options</th>
+</tr></thead><tbody><tr><td align=left>Dwarf</td>
+<td align=left>fighter/cleric, fighter/thief</td>
+</tr><tr><td rowspan=2 align=left>Elf </td>
+<td rowspan=2 align=left>fighter/mage, fighter/thief, mage/thief, fighter/mage/thief                                         </td>
+</tr><tr></tr><tr><td rowspan=2 align=left>Gnome </td>
+<td rowspan=2 align=left>fighter/thief, fighter/cleric, fighter/illusionist, thief/cleric, thief/illusionist, cleric/illusionist        </td>
+</tr><tr></tr><tr><td rowspan=3 align=left>Half-elf  </td>
+<td rowspan=3 align=left>fighter/priest, fighter/mage, fighter/thief, ranger/priest, mage/priest, mage/thief,                                    fighter/mage/priest, fighter/mage/thief                    </td>
+</tr><tr></tr><tr></tr><tr><td align=left>Halfling</td>
+<td align=left>fighter/thief</td>
+</tr><tr><td align=left>Human</td>
 <td align=left>none</td>
 </tr></tbody></table>"
 `;
@@ -41,8 +59,8 @@ exports[`extended-table Row Spanning 1`] = `
 <th>H2</th>
 </tr></thead><tbody><tr><td rowspan=3>This cell spans three  rows        </td>
 <td>Cell A</td>
-</tr></tbody><tbody><tr><td>Cell B</td>
-</tr></tbody><tbody><tr><td>Cell C</td>
+</tr><tr><td>Cell B</td>
+</tr><tr><td>Cell C</td>
 </tr></tbody></table>"
 `;
 

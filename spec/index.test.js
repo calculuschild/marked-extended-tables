@@ -98,8 +98,28 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-  test('Drops empty TRs', () => {
+  test('Drops empty TRs in multiple tbody Mode', () => {
     marked.use(extendedTable());
+    extendedTable().extensions[0].setMode(false);
+    expect(marked(trimLines(`
+      | Race     | Multi-class options                                         |
+      |:---------|:------------------------------------------------------------|
+      | Dwarf    | fighter/cleric, fighter/thief                               |
+      | Elf      | fighter/mage, fighter/thief, mage/thief,                    |
+      |         ^| fighter/mage/thief                                         ^|
+      | Gnome    | fighter/thief, fighter/cleric, fighter/illusionist,         | 
+      |         ^| thief/cleric, thief/illusionist, cleric/illusionist        ^|
+      | Half-elf | fighter/priest, fighter/mage, fighter/thief, ranger/priest, |
+      |         ^| mage/priest, mage/thief,                                   ^|
+      |         ^| fighter/mage/priest, fighter/mage/thief                    ^|
+      | Halfling | fighter/thief                                               |
+      | Human    | none                                                        |
+    `))).toMatchSnapshot();
+  });
+
+  test('Leave empty TRs in single tbody Mode', () => {
+    marked.use(extendedTable());
+    extendedTable().extensions[0].setMode(true);
     expect(marked(trimLines(`
       | Race     | Multi-class options                                         |
       |:---------|:------------------------------------------------------------|

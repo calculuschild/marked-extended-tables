@@ -144,7 +144,7 @@ const getTableCell = (text, cell, type, align, width) => {
   if (!cell.rowspan) {
     return '';
   }
-  if (text[0] === '!') return undefined;
+  if ((text[0] === '!') && (type === 'th')) return undefined;
   const tag = `<${type}`
             + `${cell.colspan > 1 ? ` colspan=${cell.colspan}` : ''}`
             + `${cell.rowspan > 1 ? ` rowspan=${cell.rowspan}` : ''}`

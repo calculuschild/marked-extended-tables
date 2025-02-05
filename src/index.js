@@ -108,8 +108,8 @@ export default function(endRegex = []) {
               cell = row[j];
               text = this.parser.parseInline(cell.tokens);
               const cellOutput = getTableCell(text, cell, 'th', token.align[col], token.width[col]);
-              if (cellOutput) headerOutput += cellOutput;
-              else break;
+              if (cellOutput !== undefined) headerOutput += cellOutput;
+              else if (j === 0) break;
               col += cell.colspan;
             }
             headerOutput += '</tr>';

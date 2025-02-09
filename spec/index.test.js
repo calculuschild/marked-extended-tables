@@ -30,6 +30,17 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
+  test('Row Merging - Full', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
   test('Multi-row headers', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`

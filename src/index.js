@@ -118,14 +118,16 @@ export default function(endRegex = []) {
             for (i = 0; i < token.rows.length; i++) {
               row = token.rows[i];
               col = 0;
-              output += '<tr>';
-              for (j = 0; j < row.length; j++) {
-                cell = row[j];
-                text = this.parser.parseInline(cell.tokens);
-                output += getTableCell(text, cell, 'td', token.align[col], token.width[col]);
-                col += cell.colspan;
+              if (!row[0].emptyRow) {
+                output += '<tr>';
+                for (j = 0; j < row.length; j++) {
+                  cell = row[j];
+                  text = this.parser.parseInline(cell.tokens);
+                  output += getTableCell(text, cell, 'td', token.align[col], token.width[col]);
+                  col += cell.colspan;
+                }
+                output += '</tr>';
               }
-              output += '</tr>';
             }
             output += '</tbody>';
           }
@@ -188,6 +190,14 @@ const splitCells = (tableRow, count, prevRow = []) => {
     }
 
     numCols += cells[i].colspan;
+  }
+
+  // If all cells have been merged, flag as an empty row
+  if (cells.length === cells.filter((cell) => { return cell.rowspan === 0; }).length) {
+    cells[0].emptyRow = true;
+    for (i = 0; i < cells.length; i++) {
+      cells[i].rowSpanTarget.rowspan -= 1;
+    }
   }
 
   // Force main cell rows to match header column count

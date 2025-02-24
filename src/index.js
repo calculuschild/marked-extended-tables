@@ -4,7 +4,7 @@ export default function(endRegex = []) {
       {
         name: 'spanTable',
         level: 'block', // Is this a block-level or inline-level tokenizer?
-        start(src) { return src.match(/^\n *([^\n ].*\|.*)\n/)?.index; }, // Hint to Marked.js to stop and check for a match
+        start(src) { return src.match(/\n *([^\n ].*\|.*)\n/m)?.index; }, // Hint to Marked.js to stop and check for a match
         tokenizer(src, tokens) {
           // const regex = this.tokenizer.rules.block.table;
           let regexString = '^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header

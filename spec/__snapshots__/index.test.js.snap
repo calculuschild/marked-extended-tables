@@ -18,7 +18,31 @@ exports[`extended-table Multi-row headers 1`] = `
 </tr></tbody></table>"
 `;
 
-exports[`extended-table Row Merging - Full 1`] = `
+exports[`extended-table Row Merging - config empty 1`] = `
+"<table><thead><tr><th>H1</th>
+<th>H2</th>
+</tr></thead><tbody><tr><td rowspan=3>Merge empty rows 1                 </td>
+<td rowspan=3>Cell A Cell B  </td>
+</tr><tr></tr><tr></tr></tbody></table>"
+`;
+
+exports[`extended-table Row Merging - skipEmptyRows: default 1`] = `
+"<table><thead><tr><th>H1</th>
+<th>H2</th>
+</tr></thead><tbody><tr><td rowspan=3>Merge empty rows 1                 </td>
+<td rowspan=3>Cell A Cell B  </td>
+</tr><tr></tr><tr></tr></tbody></table>"
+`;
+
+exports[`extended-table Row Merging - skipEmptyRows: false 1`] = `
+"<table><thead><tr><th>H1</th>
+<th>H2</th>
+</tr></thead><tbody><tr><td rowspan=3>Merge empty rows 1                 </td>
+<td rowspan=3>Cell A Cell B  </td>
+</tr><tr></tr><tr></tr></tbody></table>"
+`;
+
+exports[`extended-table Row Merging - skipEmptyRows: true 1`] = `
 "<table><thead><tr><th>H1</th>
 <th>H2</th>
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>

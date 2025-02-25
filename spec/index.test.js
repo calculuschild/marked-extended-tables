@@ -30,8 +30,41 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
-  test('Row Merging - Full', () => {
+  test('Row Merging - skipEmptyRows: default', () => {
     marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
+  test('Row Merging - skipEmptyRows: false', () => {
+    marked.use(extendedTable(undefined, { skipEmptyRows: false }));
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
+  test('Row Merging - skipEmptyRows: true', () => {
+    marked.use(extendedTable(undefined, { skipEmptyRows: true }));
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
+  test('Row Merging - config empty', () => {
+    marked.use(extendedTable(undefined, {}));
     expect(marked(trimLines(`
       | H1                | H2      |
       |-------------------|---------|

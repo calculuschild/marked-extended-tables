@@ -48,6 +48,11 @@ exports[`extended-table Row Merging - skipEmptyRows: true 1`] = `
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
 <td>Cell A Cell B  </td>
 </tr></tbody></table>"
+exports[`extended-table No catastophic backtracking for bad delimiter row 1`] = `
+"<p>| Header A | Header B | Header C | Header D | Header E | Header F | Header G | Header H |
+|:---10%---|:--------:|---------:|:--------:|:--------:|:--------:|:--------:|:-------- :|
+| Cell A   | Cell B   | Cell C   | Cell D   | Cell E   | Cell F   | Cell G   | Cell H   |</p>
+"
 `;
 
 exports[`extended-table Row Spanning 1`] = `
@@ -115,5 +120,14 @@ exports[`extended-table Works with mix of widths and not 1`] = `
 exports[`extended-table Works with percentage widths 1`] = `
 "<table><thead><tr><th width=10%>Header A</th>
 </tr></thead><tbody><tr><td width=10%>Cell A</td>
+</tr></tbody></table>"
+`;
+
+exports[`extended-table Works with text immediately before 1`] = `
+"<p>12</p>
+<table><thead><tr><th align=center width=20%>A</th>
+<th align=center>B</th>
+</tr></thead><tbody><tr><td align=center width=20%>A1</td>
+<td align=center>B1</td>
 </tr></tbody></table>"
 `;

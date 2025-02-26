@@ -6,8 +6,17 @@ function trimLines(s) {
 }
 
 describe('extended-table', () => {
+  let startTime;
+
   beforeEach(() => {
     marked.setOptions(marked.getDefaults());
+    startTime = new Date().getTime();
+  });
+
+  afterEach(() => {
+    const elapsed = new Date().getTime() - startTime;
+    if (elapsed > 50)
+      throw new Error(`Test took too long: ${elapsed} ms`);
   });
 
   test('Column Spanning', () => {
@@ -139,6 +148,25 @@ describe('extended-table', () => {
       | Header A | Header B | Header C |
       |:---10%---|:-- 20% -:|---50%---:|
       | Cell A   | Cell B   | Cell C   |
+    `))).toMatchSnapshot();
+  });
+
+  test('No catastophic backtracking for bad delimiter row', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | Header A | Header B | Header C | Header D | Header E | Header F | Header G | Header H |
+      |:---10%---|:--------:|---------:|:--------:|:--------:|:--------:|:--------:|:-------- :|
+      | Cell A   | Cell B   | Cell C   | Cell D   | Cell E   | Cell F   | Cell G   | Cell H   |
+    `))).toMatchSnapshot();
+  });
+
+  test('Works with text immediately before', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      12
+      | A     | B |
+      |:-20%-:|:--:|
+      | A1    | B1 |
     `))).toMatchSnapshot();
   });
 });

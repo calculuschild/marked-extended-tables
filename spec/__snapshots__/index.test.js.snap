@@ -18,6 +18,13 @@ exports[`extended-table Multi-row headers 1`] = `
 </tr></tbody></table>"
 `;
 
+exports[`extended-table No catastophic backtracking for bad delimiter row 1`] = `
+"<p>| Header A | Header B | Header C | Header D | Header E | Header F | Header G | Header H |
+|:---10%---|:--------:|---------:|:--------:|:--------:|:--------:|:--------:|:-------- :|
+| Cell A   | Cell B   | Cell C   | Cell D   | Cell E   | Cell F   | Cell G   | Cell H   |</p>
+"
+`;
+
 exports[`extended-table Row Spanning 1`] = `
 "<table><thead><tr><th>H1</th>
 <th>H2</th>

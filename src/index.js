@@ -1,4 +1,4 @@
-export default function(endRegex = [], configuration = { skipEmptyRows: false }) {
+export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
   return {
     extensions: [
       {
@@ -20,7 +20,7 @@ export default function(endRegex = [], configuration = { skipEmptyRows: false })
               + '|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)'
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
 
-          regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
+          regexString = regexString.replace('endRegex', interruptPatterns.map(str => `|(?:${str})`).join(''));
           const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
@@ -64,13 +64,13 @@ export default function(endRegex = [], configuration = { skipEmptyRows: false })
               // Get any remaining header rows
               l = item.header.length;
               for (i = 1; i < l; i++) {
-                item.header[i] = splitCells(item.header[i], colCount, item.header[i - 1], configuration);
+                item.header[i] = splitCells(item.header[i], colCount, item.header[i - 1], skipEmptyRows);
               }
 
               // Get main table cells
               l = item.rows.length;
               for (i = 0; i < l; i++) {
-                item.rows[i] = splitCells(item.rows[i], colCount, item.rows[i - 1], configuration);
+                item.rows[i] = splitCells(item.rows[i], colCount, item.rows[i - 1], skipEmptyRows);
               }
 
               // header child tokens
@@ -151,7 +151,7 @@ const getTableCell = (text, cell, type, align, width) => {
   return `${tag + text}</${type}>\n`;
 };
 
-const splitCells = (tableRow, count, prevRow = [], configuration) => {
+const splitCells = (tableRow, count, prevRow = [], skipEmptyRows) => {
   const cells = [...tableRow.trim().matchAll(/(?:[^|\\]|\\.?)+(?:\|+|$)/g)].map((x) => x[0]);
 
   // Remove first/last cell in a row if whitespace only and no leading/trailing pipe
@@ -193,7 +193,7 @@ const splitCells = (tableRow, count, prevRow = [], configuration) => {
   }
 
   // If all cells have been merged, flag as an empty row
-  if (configuration?.skipEmptyRows && cells.length === cells.filter((cell) => { return cell.rowspan === 0; }).length) {
+  if (skipEmptyRows && cells.length === cells.filter((cell) => { return cell.rowspan === 0; }).length) {
     cells[0].emptyRow = true;
     for (i = 0; i < cells.length; i++) {
       cells[i].rowSpanTarget.rowspan -= 1;

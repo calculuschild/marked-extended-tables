@@ -115,4 +115,14 @@ describe('extended-table', () => {
       | Cell A   | Cell B   | Cell C   | Cell D   | Cell E   | Cell F   | Cell G   | Cell H   |
     `))).toMatchSnapshot();
   });
+
+  test('Works with text immediately before', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      12
+      | A     | B |
+      |:-20%-:|:--:|
+      | A1    | B1 |
+    `))).toMatchSnapshot();
+  });
 });

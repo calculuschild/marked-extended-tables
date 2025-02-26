@@ -48,6 +48,8 @@ exports[`extended-table Row Merging - skipEmptyRows: true 1`] = `
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
 <td>Cell A Cell B  </td>
 </tr></tbody></table>"
+`;
+
 exports[`extended-table No catastophic backtracking for bad delimiter row 1`] = `
 "<p>| Header A | Header B | Header C | Header D | Header E | Header F | Header G | Header H |
 |:---10%---|:--------:|---------:|:--------:|:--------:|:--------:|:--------:|:-------- :|

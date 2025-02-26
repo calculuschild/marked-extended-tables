@@ -1,4 +1,4 @@
-export default function(endRegex = []) {
+export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
   return {
     extensions: [
       {
@@ -20,7 +20,7 @@ export default function(endRegex = []) {
               + '|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)'
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
 
-          regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
+          regexString = regexString.replace('endRegex', interruptPatterns.map(str => `|(?:${str})`).join(''));
           const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
@@ -64,13 +64,13 @@ export default function(endRegex = []) {
               // Get any remaining header rows
               l = item.header.length;
               for (i = 1; i < l; i++) {
-                item.header[i] = splitCells(item.header[i], colCount, item.header[i - 1]);
+                item.header[i] = splitCells(item.header[i], colCount, item.header[i - 1], skipEmptyRows);
               }
 
               // Get main table cells
               l = item.rows.length;
               for (i = 0; i < l; i++) {
-                item.rows[i] = splitCells(item.rows[i], colCount, item.rows[i - 1]);
+                item.rows[i] = splitCells(item.rows[i], colCount, item.rows[i - 1], skipEmptyRows);
               }
 
               // header child tokens
@@ -118,14 +118,16 @@ export default function(endRegex = []) {
             for (i = 0; i < token.rows.length; i++) {
               row = token.rows[i];
               col = 0;
-              output += '<tr>';
-              for (j = 0; j < row.length; j++) {
-                cell = row[j];
-                text = this.parser.parseInline(cell.tokens);
-                output += getTableCell(text, cell, 'td', token.align[col], token.width[col]);
-                col += cell.colspan;
+              if (!row[0].emptyRow) {
+                output += '<tr>';
+                for (j = 0; j < row.length; j++) {
+                  cell = row[j];
+                  text = this.parser.parseInline(cell.tokens);
+                  output += getTableCell(text, cell, 'td', token.align[col], token.width[col]);
+                  col += cell.colspan;
+                }
+                output += '</tr>';
               }
-              output += '</tr>';
             }
             output += '</tbody>';
           }
@@ -149,7 +151,7 @@ const getTableCell = (text, cell, type, align, width) => {
   return `${tag + text}</${type}>\n`;
 };
 
-const splitCells = (tableRow, count, prevRow = []) => {
+const splitCells = (tableRow, count, prevRow = [], skipEmptyRows) => {
   const cells = [...tableRow.trim().matchAll(/(?:[^|\\]|\\.?)+(?:\|+|$)/g)].map((x) => x[0]);
 
   // Remove first/last cell in a row if whitespace only and no leading/trailing pipe
@@ -188,6 +190,14 @@ const splitCells = (tableRow, count, prevRow = []) => {
     }
 
     numCols += cells[i].colspan;
+  }
+
+  // If all cells have been merged, flag as an empty row
+  if (skipEmptyRows && cells.length === cells.filter((cell) => { return cell.rowspan === 0; }).length) {
+    cells[0].emptyRow = true;
+    for (i = 0; i < cells.length; i++) {
+      cells[i].rowSpanTarget.rowspan -= 1;
+    }
   }
 
   // Force main cell rows to match header column count

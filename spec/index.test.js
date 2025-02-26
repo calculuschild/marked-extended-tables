@@ -39,6 +39,50 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
+  test('Row Merging - skipEmptyRows: default', () => {
+    marked.use(extendedTable());
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
+  test('Row Merging - skipEmptyRows: false', () => {
+    marked.use(extendedTable({ skipEmptyRows: false }));
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
+  test('Row Merging - skipEmptyRows: true', () => {
+    marked.use(extendedTable({ skipEmptyRows: true }));
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
+  test('Row Merging - config empty', () => {
+    marked.use(extendedTable({}));
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      | 1                ^| Cell B ^|
+      |                  ^|        ^|
+    `))).toMatchSnapshot();
+  });
+
   test('Multi-row headers', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`
@@ -50,7 +94,7 @@ describe('extended-table', () => {
   });
 
   test('Stops at custom terminators', () => {
-    marked.use(extendedTable(['aaaa']));
+    marked.use(extendedTable({interruptPatterns : ['aaaa']}));
     expect(marked(trimLines(`
       | Header A | Header B |
       |----------|----------|
@@ -60,7 +104,7 @@ describe('extended-table', () => {
   });
 
   test('Stops at custom multiline terminators', () => {
-    marked.use(extendedTable(['aaaa\nbbbb']));
+    marked.use(extendedTable({interruptPatterns : ['aaaa\nbbbb']}));
     expect(marked(trimLines(`
       | Header A | Header B |
       |----------|----------|

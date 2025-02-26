@@ -51,7 +51,7 @@ describe('extended-table', () => {
   });
 
   test('Row Merging - skipEmptyRows: false', () => {
-    marked.use(extendedTable(undefined, { skipEmptyRows: false }));
+    marked.use(extendedTable({ skipEmptyRows: false }));
     expect(marked(trimLines(`
       | H1                | H2      |
       |-------------------|---------|
@@ -62,7 +62,7 @@ describe('extended-table', () => {
   });
 
   test('Row Merging - skipEmptyRows: true', () => {
-    marked.use(extendedTable(undefined, { skipEmptyRows: true }));
+    marked.use(extendedTable({ skipEmptyRows: true }));
     expect(marked(trimLines(`
       | H1                | H2      |
       |-------------------|---------|
@@ -73,7 +73,7 @@ describe('extended-table', () => {
   });
 
   test('Row Merging - config empty', () => {
-    marked.use(extendedTable(undefined, {}));
+    marked.use(extendedTable({}));
     expect(marked(trimLines(`
       | H1                | H2      |
       |-------------------|---------|
@@ -94,7 +94,7 @@ describe('extended-table', () => {
   });
 
   test('Stops at custom terminators', () => {
-    marked.use(extendedTable(['aaaa']));
+    marked.use(extendedTable({interruptPatterns : ['aaaa']}));
     expect(marked(trimLines(`
       | Header A | Header B |
       |----------|----------|
@@ -104,7 +104,7 @@ describe('extended-table', () => {
   });
 
   test('Stops at custom multiline terminators', () => {
-    marked.use(extendedTable(['aaaa\nbbbb']));
+    marked.use(extendedTable({interruptPatterns : ['aaaa\nbbbb']}));
     expect(marked(trimLines(`
       | Header A | Header B |
       |----------|----------|

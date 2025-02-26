@@ -18,20 +18,27 @@ exports[`extended-table Multi-row headers 1`] = `
 </tr></tbody></table>"
 `;
 
+exports[`extended-table No catastophic backtracking for bad delimiter row 1`] = `
+"<p>| Header A | Header B | Header C | Header D | Header E | Header F | Header G | Header H |
+|:---10%---|:--------:|---------:|:--------:|:--------:|:--------:|:--------:|:-------- :|
+| Cell A   | Cell B   | Cell C   | Cell D   | Cell E   | Cell F   | Cell G   | Cell H   |</p>
+"
+`;
+
 exports[`extended-table Row Merging - config empty 1`] = `
 "<table><thead><tr><th>H1</th>
 <th>H2</th>
-</tr></thead><tbody><tr><td rowspan=3>Merge empty rows 1                 </td>
-<td rowspan=3>Cell A Cell B  </td>
-</tr><tr></tr><tr></tr></tbody></table>"
+</tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
+<td>Cell A Cell B  </td>
+</tr></tbody></table>"
 `;
 
 exports[`extended-table Row Merging - skipEmptyRows: default 1`] = `
 "<table><thead><tr><th>H1</th>
 <th>H2</th>
-</tr></thead><tbody><tr><td rowspan=3>Merge empty rows 1                 </td>
-<td rowspan=3>Cell A Cell B  </td>
-</tr><tr></tr><tr></tr></tbody></table>"
+</tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
+<td>Cell A Cell B  </td>
+</tr></tbody></table>"
 `;
 
 exports[`extended-table Row Merging - skipEmptyRows: false 1`] = `
@@ -48,13 +55,6 @@ exports[`extended-table Row Merging - skipEmptyRows: true 1`] = `
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
 <td>Cell A Cell B  </td>
 </tr></tbody></table>"
-`;
-
-exports[`extended-table No catastophic backtracking for bad delimiter row 1`] = `
-"<p>| Header A | Header B | Header C | Header D | Header E | Header F | Header G | Header H |
-|:---10%---|:--------:|---------:|:--------:|:--------:|:--------:|:--------:|:-------- :|
-| Cell A   | Cell B   | Cell C   | Cell D   | Cell E   | Cell F   | Cell G   | Cell H   |</p>
-"
 `;
 
 exports[`extended-table Row Spanning 1`] = `

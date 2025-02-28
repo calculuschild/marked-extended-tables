@@ -6,6 +6,7 @@ export default function(endRegex = []) {
         level: 'block', // Is this a block-level or inline-level tokenizer?
         start(src) { return src.match(/^\n *([^\n ].*\|.*)\n/)?.index; }, // Hint to Marked.js to stop and check for a match
         tokenizer(src, tokens) {
+          console.log('starting');
           // const regex = this.tokenizer.rules.block.table;
           let regexString = '^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header
               + ' {0,3}(?:\\| *)?(:?-+(?: *(?:100|[1-9][0-9]?%) *-)?-*:? *(?:\\| *:?-+(?: *(?:100|[1-9][0-9]?%) *-)?-*:? *)*)(?:\\| *)?' // Align
@@ -19,13 +20,15 @@ export default function(endRegex = []) {
               + '|meta|nav|noframes|ol|optgroup|option|p|param|section|source'
               + '|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)'
               + '(?: +|\\n|\\/?>)|<(?:script|pre|style|textarea|!--)endRegex).*(?:\\n|$))*)\\n*|$)'; // Cells
-
           regexString = regexString.replace('endRegex', endRegex.map(str => `|(?:${str})`).join(''));
           const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
+          console.log(regexString);
+          console.log('running capture');
           const cap = regex.exec(src);
-
+          console.log('Testing capture');
           if (cap) {
+            console.log('capture found');
             const item = {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
@@ -48,15 +51,19 @@ export default function(endRegex = []) {
 
               // Get alignment row (:---:)
               let l = item.align.length;
-
+              console.log('checking alignment.');
               for (i = 0; i < l; i++) {
                 if (/^ *-+: *$/.test(item.align[i])) {
+                  console.log('right');
                   item.align[i] = 'right';
                 } else if (/^ *:-+: *$/.test(item.align[i])) {
+                  console.log('center');
                   item.align[i] = 'center';
                 } else if (/^ *:-+ *$/.test(item.align[i])) {
+                  console.log('left');
                   item.align[i] = 'left';
                 } else {
+                  console.log('none')
                   item.align[i] = null;
                 }
               }
@@ -95,8 +102,13 @@ export default function(endRegex = []) {
               return item;
             }
           }
+          else {
+            console.log('capture not found');
+            console.log(src);
+          }
         },
         renderer(token) {
+          console.log('renderer start');
           let i, j, row, cell, col, text;
           let output = '<table>';
           output += '<thead>';
@@ -130,6 +142,7 @@ export default function(endRegex = []) {
             output += '</tbody>';
           }
           output += '</table>';
+          console.log('renderer-stop');
           return output;
         }
       }

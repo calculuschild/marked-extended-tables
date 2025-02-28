@@ -56,7 +56,7 @@ const extendedTables = require("marked-extended-tables");
 // import marked from "https://cdn.jsdelivr.net/gh/markedjs/marked/lib/marked.esm.js";
 // import this extension from "https://cdn.jsdelivr.net/gh/calculuschild/marked-extended-tables/lib/index.mjs";
 
-marked.use(extendedTables());
+marked.use(extendedTables(options));
 
 const html = marked.parse("| spanned header ||\n|----|----|\n|cell 1|cell 2|");
 console.log(html);
@@ -72,4 +72,7 @@ console.log(html);
 
 ## `options`
 
-<!-- If there are no options you can delete this section -->
+| option            |  type        | default | description |
+|-------------------|--------------|---------|:------------|
+| interruptPatterns | string array |  `[]`   | Array of any string patterns (regex strings allowed) that should interrupt parsing of a table. For example, the start of another Markdown token that should not be interpreted as a new row in the table |
+| skipEmptyRows     | bool         | `true`  | If every cell in a row has been merged into the previous row via the rowspan `^` syntax, this will leave an empty `<tr>` row in the table with no `<td>` or other content. By default, empty rows will simply be removed from the output. Setting this option to `false` will retain the empty rows. |

@@ -83,6 +83,16 @@ describe('extended-table', () => {
     `))).toMatchSnapshot();
   });
 
+  test('Incomplete Row', () => {
+    marked.use(extendedTable({}));
+    expect(marked(trimLines(`
+      | H1                | H2      |
+      |-------------------|---------|
+      | Merge empty rows  | Cell A  |
+      |
+    `))).toMatchSnapshot();
+  });
+
   test('Multi-row headers', () => {
     marked.use(extendedTable());
     expect(marked(trimLines(`

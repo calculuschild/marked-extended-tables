@@ -193,7 +193,7 @@ const splitCells = (tableRow, count, prevRow = [], skipEmptyRows) => {
   }
 
   // If all cells have been merged, flag as an empty row
-  if (skipEmptyRows && cells.length === cells.filter((cell) => { return cell.rowspan === 0; }).length) {
+  if (cells.length > 0 && skipEmptyRows && cells.length === cells.filter((cell) => { return cell.rowspan === 0; }).length) {
     cells[0].emptyRow = true;
     for (i = 0; i < cells.length; i++) {
       cells[i].rowSpanTarget.rowspan -= 1;

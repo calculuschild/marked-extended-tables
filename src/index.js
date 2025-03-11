@@ -24,12 +24,8 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
           regexString = regexString.replace('endRegex', interruptPatterns.map(str => `|(?:${str})`).join(''));
           const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
-          console.log(regexString);
-          console.log('running capture');
           const cap = regex.exec(src);
-          console.log('Testing capture');
           if (cap) {
-            console.log('capture found');
             const item = {
               type: 'spanTable',
               header: cap[1].replace(/\n$/, '').split('\n'),
@@ -52,19 +48,14 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
 
               // Get alignment row (:---:)
               let l = item.align.length;
-              console.log('checking alignment.');
               for (i = 0; i < l; i++) {
                 if (/^ *-+: *$/.test(item.align[i])) {
-                  console.log('right');
                   item.align[i] = 'right';
                 } else if (/^ *:-+: *$/.test(item.align[i])) {
-                  console.log('center');
                   item.align[i] = 'center';
                 } else if (/^ *:-+ *$/.test(item.align[i])) {
-                  console.log('left');
                   item.align[i] = 'left';
                 } else {
-                  console.log('none')
                   item.align[i] = null;
                 }
               }
@@ -103,13 +94,8 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
               return item;
             }
           }
-          else {
-            console.log('capture not found');
-            console.log(src);
-          }
         },
         renderer(token) {
-          console.log('renderer start');
           let i, j, row, cell, col, text;
           let output = '<table>';
           output += '<thead>';
@@ -145,7 +131,6 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
             output += '</tbody>';
           }
           output += '</table>';
-          console.log('renderer-stop');
           return output;
         }
       }
@@ -160,6 +145,7 @@ const getTableCell = (text, cell, type, align, width) => {
   const tag = `<${type}`
             + `${cell.colspan > 1 ? ` colspan=${cell.colspan}` : ''}`
             + `${cell.rowspan > 1 ? ` rowspan=${cell.rowspan}` : ''}`
+            + `${type === 'th' ? ' scope="col"' : ''}`
             + `${align ? ` align=${align}` : ''}`
             + `${width ? ` width=${width}` : ''}>`;
   return `${tag + text}</${type}>\n`;

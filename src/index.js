@@ -6,7 +6,6 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
         level: 'block', // Is this a block-level or inline-level tokenizer?
         start(src) { return src.match(/\n *([^\n ].*\|.*)\n/m)?.index; }, // Hint to Marked.js to stop and check for a match
         tokenizer(src, tokens) {
-          console.log('starting');
           // const regex = this.tokenizer.rules.block.table;
           let regexString = '^ *([^\\n ].*\\|.*\\n(?: *[^\\s].*\\n)*?)' // Header
               + ' {0,3}(?:\\| *)?(:?-+(?: *(?:100|[1-9][0-9]?%) *-+)?:? *(?:\\| *:?-+(?: *(?:100|[1-9][0-9]?%) *-+)?:? *)*)(?:\\| *)?' // Align

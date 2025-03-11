@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`extended-table Column Spanning 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
-<th>H3</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
+<th scope="col">H3</th>
 </tr></thead><tbody><tr><td colspan=3>This cell spans 3 columns</td>
 </tr></tbody></table>"
 `;
 
 exports[`extended-table Incomplete Row 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
 </tr></thead><tbody><tr><td>Merge empty rows</td>
 <td>Cell A</td>
 </tr><tr><td></td>
@@ -19,9 +19,9 @@ exports[`extended-table Incomplete Row 1`] = `
 `;
 
 exports[`extended-table Multi-row headers 1`] = `
-"<table><thead><tr><th colspan=2 rowspan=2>This header spans two columns <em>and</em> two rows </th>
-<th>Header A</th>
-</tr><tr><th>Header B</th>
+"<table><thead><tr><th colspan=2 rowspan=2 scope="col">This header spans two columns <em>and</em> two rows </th>
+<th scope="col">Header A</th>
+</tr><tr><th scope="col">Header B</th>
 </tr></thead><tbody><tr><td>Cell A</td>
 <td>Cell B</td>
 <td>Cell C</td>
@@ -36,40 +36,40 @@ exports[`extended-table No catastophic backtracking for bad delimiter row 1`] = 
 `;
 
 exports[`extended-table Row Merging - config empty 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
 <td>Cell A Cell B  </td>
 </tr></tbody></table>"
 `;
 
 exports[`extended-table Row Merging - skipEmptyRows: default 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
 <td>Cell A Cell B  </td>
 </tr></tbody></table>"
 `;
 
 exports[`extended-table Row Merging - skipEmptyRows: false 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
 </tr></thead><tbody><tr><td rowspan=3>Merge empty rows 1                 </td>
 <td rowspan=3>Cell A Cell B  </td>
 </tr><tr></tr><tr></tr></tbody></table>"
 `;
 
 exports[`extended-table Row Merging - skipEmptyRows: true 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
 </tr></thead><tbody><tr><td>Merge empty rows 1                 </td>
 <td>Cell A Cell B  </td>
 </tr></tbody></table>"
 `;
 
 exports[`extended-table Row Spanning 1`] = `
-"<table><thead><tr><th>H1</th>
-<th>H2</th>
+"<table><thead><tr><th scope="col">H1</th>
+<th scope="col">H2</th>
 </tr></thead><tbody><tr><td rowspan=3>This cell spans three  rows        </td>
 <td>Cell A</td>
 </tr><tr><td>Cell B</td>
@@ -78,8 +78,8 @@ exports[`extended-table Row Spanning 1`] = `
 `;
 
 exports[`extended-table Stops at custom multiline terminators 1`] = `
-"<table><thead><tr><th>Header A</th>
-<th>Header B</th>
+"<table><thead><tr><th scope="col">Header A</th>
+<th scope="col">Header B</th>
 </tr></thead><tbody><tr><td>Cell A</td>
 <td>Cell B</td>
 </tr></tbody></table><p>aaaa
@@ -89,8 +89,8 @@ cccc</p>
 `;
 
 exports[`extended-table Stops at custom terminators 1`] = `
-"<table><thead><tr><th>Header A</th>
-<th>Header B</th>
+"<table><thead><tr><th scope="col">Header A</th>
+<th scope="col">Header B</th>
 </tr></thead><tbody><tr><td>Cell A</td>
 <td>Cell B</td>
 </tr></tbody></table><p>aaaa</p>
@@ -98,9 +98,9 @@ exports[`extended-table Stops at custom terminators 1`] = `
 `;
 
 exports[`extended-table Works with combined widths and alignment 1`] = `
-"<table><thead><tr><th align=left width=10%>Header A</th>
-<th align=center width=20%>Header B</th>
-<th align=right width=50%>Header C</th>
+"<table><thead><tr><th scope="col" align=left width=10%>Header A</th>
+<th scope="col" align=center width=20%>Header B</th>
+<th scope="col" align=right width=50%>Header C</th>
 </tr></thead><tbody><tr><td align=left width=10%>Cell A</td>
 <td align=center width=20%>Cell B</td>
 <td align=right width=50%>Cell C</td>
@@ -108,10 +108,10 @@ exports[`extended-table Works with combined widths and alignment 1`] = `
 `;
 
 exports[`extended-table Works with minimal delimiter rows 1`] = `
-"<table><thead><tr><th>Header A</th>
-<th align=left>Header B</th>
-<th align=right>Header C</th>
-<th align=center>Header D</th>
+"<table><thead><tr><th scope="col">Header A</th>
+<th scope="col" align=left>Header B</th>
+<th scope="col" align=right>Header C</th>
+<th scope="col" align=center>Header D</th>
 </tr></thead><tbody><tr><td>Cell A</td>
 <td align=left>Cell B</td>
 <td align=right>Cell C</td>
@@ -120,9 +120,9 @@ exports[`extended-table Works with minimal delimiter rows 1`] = `
 `;
 
 exports[`extended-table Works with mix of widths and not 1`] = `
-"<table><thead><tr><th width=10%>Header A</th>
-<th>Header B</th>
-<th width=50%>Header C</th>
+"<table><thead><tr><th scope="col" width=10%>Header A</th>
+<th scope="col">Header B</th>
+<th scope="col" width=50%>Header C</th>
 </tr></thead><tbody><tr><td width=10%>Cell A</td>
 <td>Cell B</td>
 <td width=50%>Cell C</td>
@@ -130,15 +130,15 @@ exports[`extended-table Works with mix of widths and not 1`] = `
 `;
 
 exports[`extended-table Works with percentage widths 1`] = `
-"<table><thead><tr><th width=10%>Header A</th>
+"<table><thead><tr><th scope="col" width=10%>Header A</th>
 </tr></thead><tbody><tr><td width=10%>Cell A</td>
 </tr></tbody></table>"
 `;
 
 exports[`extended-table Works with text immediately before 1`] = `
 "<p>12</p>
-<table><thead><tr><th align=center width=20%>A</th>
-<th align=center>B</th>
+<table><thead><tr><th scope="col" align=center width=20%>A</th>
+<th scope="col" align=center>B</th>
 </tr></thead><tbody><tr><td align=center width=20%>A1</td>
 <td align=center>B1</td>
 </tr></tbody></table>"

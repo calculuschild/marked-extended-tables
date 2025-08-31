@@ -117,7 +117,7 @@ export default function({ interruptPatterns = [], skipEmptyRows = true, colGroup
           if (colGroups) {
             output += '<colGroup>';
             for (i = 0; i < maxCol + 1; i++) {
-              output += `<col class='column${i + 1}' />`;
+              output += '<col />';
             }
             output += '</colGroup>';
           }

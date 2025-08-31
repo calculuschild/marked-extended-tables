@@ -3,7 +3,7 @@
 exports[`extended-table Colgroups added to header 1`] = `
 "<table><thead><tr><th>Header A</th>
 <th>Header B</th>
-</tr></thead><colGroup><col class='column1' /><col class='column2' /></colGroup><tbody><tr><td>Cell A</td>
+</tr></thead><colGroup><col /><col /></colGroup><tbody><tr><td>Cell A</td>
 <td>Cell B</td>
 </tr><tr><td>aaaa</td>
 <td></td>

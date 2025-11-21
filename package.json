@@ -50,7 +50,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.6.0",
-    "jest-cli": "^29.7.0",
+    "jest-cli": "^30.2.0",
     "rollup": "^4.34.8",
     "semantic-release": "^24.2.3"
   }

@@ -5,8 +5,17 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    versioning-strategy: "increase"
     directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 20
+      interval: "daily"   # from the good config
+    open-pull-requests-limit: 99
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+        patterns: ["*"]
+        update-types: ["patch", "minor"]
+      prod-dependencies:
+        dependency-type: "production"
+        patterns: ["*"]
+        update-types: ["patch", "minor"]
+

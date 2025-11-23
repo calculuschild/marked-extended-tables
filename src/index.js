@@ -1,4 +1,4 @@
-export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
+export default function({ interruptPatterns = [], skipEmptyRows = true, colGroups = false } = {}) {
   return {
     extensions: [
       {
@@ -97,7 +97,7 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
           }
         },
         renderer(token) {
-          let i, j, row, cell, col, text;
+          let i, j, row, cell, col, text, maxCol = 0;
           let output = '<table>';
           output += '<thead>';
           for (i = 0; i < token.header.length; i++) {
@@ -109,10 +109,18 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
               text = this.parser.parseInline(cell.tokens);
               output += getTableCell(text, cell, 'th', token.align[col], token.width[col]);
               col += cell.colspan;
+              maxCol = j > maxCol ? j : maxCol;
             }
             output += '</tr>';
           }
           output += '</thead>';
+          if (colGroups) {
+            output += '<colGroup>';
+            for (i = 0; i < maxCol + 1; i++) {
+              output += '<col />';
+            }
+            output += '</colGroup>';
+          }
           if (token.rows.length) {
             output += '<tbody>';
             for (i = 0; i < token.rows.length; i++) {

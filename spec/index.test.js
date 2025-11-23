@@ -179,4 +179,16 @@ describe('extended-table', () => {
       | A1    | B1 |
     `))).toMatchSnapshot();
   });
+
+  test('Colgroups added to header', () => {
+    marked.use(extendedTable({ colGroups: true }));
+    expect(marked(trimLines(`
+      | Header A | Header B |
+      |----------|----------|
+      | Cell A   | Cell B   |
+      aaaa
+      bbbb
+      cccc
+    `))).toMatchSnapshot();
+  });
 });

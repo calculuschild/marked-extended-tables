@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`extended-table Colgroups added to header 1`] = `
+"<table><thead><tr><th>Header A</th>
+<th>Header B</th>
+</tr></thead><colGroup><col /><col /></colGroup><tbody><tr><td>Cell A</td>
+<td>Cell B</td>
+</tr><tr><td>aaaa</td>
+<td></td>
+</tr><tr><td>bbbb</td>
+<td></td>
+</tr><tr><td>cccc</td>
+<td></td>
+</tr></tbody></table>"
+`;
+
 exports[`extended-table Column Spanning 1`] = `
 "<table><thead><tr><th>H1</th>
 <th>H2</th>

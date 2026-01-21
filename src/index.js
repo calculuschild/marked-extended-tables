@@ -24,7 +24,6 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
           const widthRegex = / *(?:100|[1-9][0-9]?%) */g;
           const regex = new RegExp(regexString);
           const cap = regex.exec(src);
-
           if (cap) {
             const item = {
               type: 'spanTable',
@@ -48,7 +47,6 @@ export default function({ interruptPatterns = [], skipEmptyRows = true } = {}) {
 
               // Get alignment row (:---:)
               let l = item.align.length;
-
               for (i = 0; i < l; i++) {
                 if (/^ *-+: *$/.test(item.align[i])) {
                   item.align[i] = 'right';
@@ -146,6 +144,7 @@ const getTableCell = (text, cell, type, align, width) => {
   const tag = `<${type}`
             + `${cell.colspan > 1 ? ` colspan=${cell.colspan}` : ''}`
             + `${cell.rowspan > 1 ? ` rowspan=${cell.rowspan}` : ''}`
+            + `${type === 'th' ? ' scope="col"' : ''}`
             + `${align ? ` align=${align}` : ''}`
             + `${width ? ` width=${width}` : ''}>`;
   return `${tag + text}</${type}>\n`;
